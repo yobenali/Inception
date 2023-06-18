@@ -4,10 +4,10 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y nginx
 
 # Copy NGINX configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /conf/nginx.conf /etc/nginx/nginx.conf
 
 # Copy HTML files
-COPY index.html /var/www/html/index.html
+COPY /tools/index.html /var/www/html/index.html
 
 # Expose port 80
 EXPOSE 443
