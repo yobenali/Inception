@@ -17,9 +17,9 @@ COPY wp.sh /
 RUN chmod +x wp.sh 
 
 # Download and extract the latest WordPress
-# RUN wget https://wordpress.org/latest.tar.gz \
-#     && tar -xf latest.tar.gz \
-#     && rm latest.tar.gz
+RUN wget https://wordpress.org/latest.tar.gz \
+    && tar -xf latest.tar.gz \
+    && rm latest.tar.gz
 
 # Copy custom php-fpm configuration
 #COPY ./php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf

@@ -1,13 +1,5 @@
 version: '3'
 services:
-  nginx:
-    image: nginx
-    ports:
-      - 443:443
-    # volumes:
-    #   - nginx-conf:/etc/nginx/conf.d
-    depends_on:
-      - wordpress
 
   wordpress:
     image: wordpress:php7.4-fpm
@@ -20,9 +12,24 @@ services:
       - WORDPRESS_DB_NAME=wordpress
     depends_on:
       - mariadb
+    networks:
+      - Inception
+
+  nginx:
+    image: nginx
+    networks:
+      - Inception
+    ports:
+      - 443:443
+    volumes:
+      - wordpress-data:/var/www/html
+    depends_on:
+      - wordpress
 
   mariadb:
     image: mariadb
+    networks:
+      - Inception
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_DATABASE=wordpress
@@ -30,6 +37,10 @@ services:
       - MYSQL_PASSWORD=example
     volumes:
       - mariadb-data:/var/lib/mysql
+
+networks:
+  Inception:
+    driver: bridge
 
 volumes:
   wordpress-data:
