@@ -2,7 +2,9 @@ version: '3'
 services:
 
   wordpress:
-    image: wordpress:php7.4-fpm
+    build: ./requirements/wordpress
+    container_name: wordpress
+    image: wordpress
     volumes:
       - wordpress-data:/var/www/html
     environment:
@@ -16,6 +18,8 @@ services:
       - Inception
 
   nginx:
+    build: ./requirements/nginx
+    container_name: nginx
     image: nginx
     networks:
       - Inception
@@ -27,6 +31,8 @@ services:
       - wordpress
 
   mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
     image: mariadb
     networks:
       - Inception

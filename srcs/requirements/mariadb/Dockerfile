@@ -4,8 +4,8 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y mariadb-server
 
 # Configure MariaDB
-#RUN sed -i 's/bind-address/#bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-#RUN echo 'skip-networking' >> /etc/mysql/mariadb.conf.d/50-server.cnf
+# RUN sed -i 's/bind-address/#bind-address/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+# RUN echo 'skip-networking' >> /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY database.sh /
 RUN chmod +x database.sh
