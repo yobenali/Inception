@@ -9,10 +9,6 @@ RUN openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/nginx/conf.d/localhos
 # Copy NGINX configuration file
 COPY ./conf/nginx.conf /etc/nginx/conf.d/
 
-# Copy HTML files
-COPY /tools/index.html /var/www/html/index.html
-
-
 # Expose port 80
 EXPOSE 443
 

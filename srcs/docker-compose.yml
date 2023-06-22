@@ -9,7 +9,7 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - wordpress-data:/wordpress
+      - wordpress-data:/var/www/html/wordpress
     env_file:
       - .env
     depends_on:
@@ -27,7 +27,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress-data:/var/www/html
+      - wordpress-data:/var/www/html/wordpress
     depends_on:
       - wordpress
   mariadb:

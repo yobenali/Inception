@@ -8,7 +8,10 @@ chown -R www-data:www-data /var/www/html/wordpress/*
 
 cd /var/www/html/wordpress
 
+wp core download --path=/var/www/html/wordpress/ --allow-root
+
 rm -rf wp-config.php
+
 wp config create --allow-root --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=mariadb
 
 wp core install --url=${DOMAIN_NAME} --title=inception --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PW} --admin_email=${WP_ADMIN_EMAIL} --allow-root
