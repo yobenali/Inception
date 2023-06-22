@@ -5,13 +5,13 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     image: wordpress
+    restart: always
+    ports:
+      - 9000:9000
     volumes:
-      - wordpress-data:/var/www/html
-    environment:
-      - WORDPRESS_DB_HOST=mariadb
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=example
-      - WORDPRESS_DB_NAME=wordpress
+      - wordpress-data:/wordpress
+    env_file:
+      - .env
     depends_on:
       - mariadb
     networks:
@@ -21,6 +21,7 @@ services:
     build: ./requirements/nginx
     container_name: nginx
     image: nginx
+    restart: always
     networks:
       - Inception
     ports:
@@ -29,18 +30,21 @@ services:
       - wordpress-data:/var/www/html
     depends_on:
       - wordpress
-
   mariadb:
-    build: ./requirements/mariadb
+    build: 
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
     container_name: mariadb
     image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
     networks:
       - Inception
-    environment:
-      - MYSQL_ROOT_PASSWORD=example
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD=example
     volumes:
       - mariadb-data:/var/lib/mysql
 
@@ -50,4 +54,14 @@ networks:
 
 volumes:
   wordpress-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/yobenali/data/wordpress
   mariadb-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/yobenali/data/mariadb
